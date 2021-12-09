@@ -1,24 +1,24 @@
 import UIKit
 
 public enum NavigationSegue: Equatable {
-    case push(onto: UINavigationController)
-    case present(on: UIViewController)
+    case push(onto: UINavigationController, animated: Bool)
+    case present(on: UIViewController, animated: Bool)
 
     public enum RewindAction {
-        case pop(navigationController: UINavigationController, to: UIViewController?)
-        case dismiss(viewController: UIViewController)
+        case pop(navigationController: UINavigationController, to: UIViewController?, animated: Bool)
+        case dismiss(viewController: UIViewController, animated: Bool)
 
         public func rewind() {
             switch self {
-            case let .pop(navigationController: navigationController, to: viewController):
+            case let .pop(navigationController: navigationController, to: viewController, animated: animated):
                 if let viewController = viewController {
-                    navigationController.popToViewController(viewController, animated: true)
+                    navigationController.popToViewController(viewController, animated: animated)
                 } else {
-                    navigationController.setViewControllers([], animated: true)
+                    navigationController.setViewControllers([], animated: animated)
                 }
 
-            case let .dismiss(viewController: viewController):
-                viewController.dismiss(animated: true)
+            case let .dismiss(viewController: viewController, animated: animated):
+                viewController.dismiss(animated: animated)
             }
         }
     }
@@ -26,14 +26,14 @@ public enum NavigationSegue: Equatable {
     @discardableResult
     public func invoke(with viewController: UIViewController) -> RewindAction {
         switch self {
-        case let .push(onto: navigationController):
+        case let .push(onto: navigationController, animated: animated):
             let topViewController = navigationController.topViewController
-            navigationController.pushViewController(viewController, animated: true)
-            return .pop(navigationController: navigationController, to: topViewController)
+            navigationController.pushViewController(viewController, animated: animated)
+            return .pop(navigationController: navigationController, to: topViewController, animated: animated)
 
-        case let .present(on: presentingViewController):
-            presentingViewController.present(viewController, animated: true)
-            return .dismiss(viewController: viewController)
+        case let .present(on: presentingViewController, animated: animated):
+            presentingViewController.present(viewController, animated: animated)
+            return .dismiss(viewController: viewController, animated: animated)
         }
     }
 }

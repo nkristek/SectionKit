@@ -2,6 +2,6 @@ import UIKit
 
 extension ExampleCoordinator: ExampleNavigation {
     internal func showDetail() {
-        presentable().push(onto: navigationController)
+        presentable().push(onto: navigationController, animated: true)
     }
 }

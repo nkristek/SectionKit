@@ -8,14 +8,14 @@ public protocol Presentable {
 extension Presentable {
     @inlinable
     @discardableResult
-    public func push(onto navigationController: UINavigationController) -> NavigationSegue.RewindAction {
-        present(segue: .push(onto: navigationController))
+    public func push(onto navigationController: UINavigationController, animated: Bool) -> NavigationSegue.RewindAction {
+        present(segue: .push(onto: navigationController, animated: animated))
     }
 
     @inlinable
     @discardableResult
-    public func present(on viewController: UIViewController) -> NavigationSegue.RewindAction {
-        present(segue: .present(on: viewController))
+    public func present(on viewController: UIViewController, animated: Bool) -> NavigationSegue.RewindAction {
+        present(segue: .present(on: viewController, animated: animated))
     }
 }
 
