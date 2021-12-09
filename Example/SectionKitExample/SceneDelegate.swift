@@ -18,7 +18,7 @@ internal final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController()
         navigationController.navigationBar.prefersLargeTitles = true
         let coordinator = ExampleListCoordinator(navigationController: navigationController)
-        coordinator.push(onto: navigationController, animated: true)
+        navigationController.push(coordinator, animated: true)
 
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
